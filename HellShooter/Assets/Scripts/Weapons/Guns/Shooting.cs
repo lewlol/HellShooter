@@ -33,8 +33,8 @@ public class Shooting : MonoBehaviour
                 return;
             }
 
-            //Shooting a Projectile
-            ShootProjectile();
+            //Shooting Raycast
+            ShootRaycast();
 
             //Minus a Bullet
             magCount--;
@@ -55,6 +55,9 @@ public class Shooting : MonoBehaviour
         //Instantiate the Bullet
         GameObject bullet = Instantiate(gun.projectile, cam.transform.position, Quaternion.identity);
 
+        //Add Damage to Bullet
+        bullet.GetComponent<Bullet>().damage = gun.damage;
+
         //Bullet Direction and Speed
         Vector3 direction = cam.transform.forward;
         direction.Normalize();
@@ -64,6 +67,21 @@ public class Shooting : MonoBehaviour
 
         //Destroy Bullet after time
         Destroy(bullet, gun.bulletTime);
+    } //USE LATER
+
+    private void ShootRaycast()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(cam.transform.forward, cam.transform.forward, out hit, gun.bulletTime))
+        {
+            Debug.Log(hit.transform.name);
+
+            //Hit an Enemy
+            if(hit.transform.tag == "Enemy")
+            {
+                hit.transform.GetComponentInParent<EnemyHealth>().TakeDamage(gun.damage);
+            }
+        }
     }
 
     private void DetermineReload()

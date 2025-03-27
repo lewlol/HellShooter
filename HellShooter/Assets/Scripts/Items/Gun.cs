@@ -4,6 +4,7 @@ using UnityEngine;
 public class Gun : Item
 {
     [Header("Gun Stats")]
+    public float damage;
     public GameObject projectile;
     public float bulletSpeed;
     public float bulletTime;
