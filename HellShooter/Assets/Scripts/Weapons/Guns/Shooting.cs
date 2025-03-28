@@ -72,7 +72,7 @@ public class Shooting : MonoBehaviour
     private void ShootRaycast()
     {
         RaycastHit hit;
-        if (Physics.Raycast(cam.transform.forward, cam.transform.forward, out hit, gun.bulletTime))
+        if (Physics.Raycast(cam.transform.parent.transform.position, cam.transform.forward, out hit, gun.bulletTime))
         {
             Debug.Log(hit.transform.name);
 
